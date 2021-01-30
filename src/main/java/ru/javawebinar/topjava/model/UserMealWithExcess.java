@@ -16,7 +16,7 @@ public class UserMealWithExcess {
         this.description = description;
         this.calories = calories;
         this.excess = excess;
-        System.out.println("123");
+
     }
 
     @Override
