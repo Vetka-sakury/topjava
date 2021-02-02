@@ -3,12 +3,11 @@ package ru.javawebinar.topjava.util;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.model.UserMealWithExcess;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class UserMealsUtil {
     public static void main(String[] args) {
@@ -29,15 +28,31 @@ public class UserMealsUtil {
     }
 
     public static List<UserMealWithExcess> filteredByCycles(List<UserMeal> meals, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
+
+        Map <LocalDate, Integer> caloriesPerDate = new HashMap<>();
+        caloriesPerDate.put(meals.get(0).getDateTime().toLocalDate(), meals.get(0).getCalories());
+        for (UserMeal um : meals){
+            LocalDate date = um.getDateTime().toLocalDate();
+            Integer calories =  caloriesPerDate.getOrDefault(date, 0);
+            if (calories == 0){
+                caloriesPerDate.put(date, um.getCalories());
+            }
+            else caloriesPerDate.merge(date,)
+        }
+
         List <UserMealWithExcess> userMealWithExcess = new ArrayList<>();
         for (UserMeal um : meals){
             if (um.getDateTime().getLong()>startTime && ){
                 um.getDateTime().getLong()
-                userMealWithExcess.add(new UserMealWithExcess(um.getDateTime(), um.getDescription(), um.getCalories(), false));
+                userMealWithExcess.add(createUserMealWithExcess(um, false));
             }
         }
         // TODO return filtered list with excess. Implement by cycles
         return null;
+    }
+
+    private static UserMealWithExcess createUserMealWithExcess(UserMeal um, boolean excess){
+        return new UserMealWithExcess(um.getDateTime(), um.getDescription(), um.getCalories(), excess);
     }
 
     public static List<UserMealWithExcess> filteredByStreams(List<UserMeal> meals, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
