@@ -27,30 +27,26 @@ public class UserMealsUtil {
 //        System.out.println(filteredByStreams(meals, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000));
     }
 
+    // TODO return filtered list with excess. Implement by cycles
     public static List<UserMealWithExcess> filteredByCycles(List<UserMeal> meals, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
-
-        Map <LocalDate, Integer> caloriesPerDate = new HashMap<>();
-        caloriesPerDate.put(meals.get(0).getDateTime().toLocalDate(), meals.get(0).getCalories());
+        // map for counting calories per a day
+        Map <LocalDate, Integer> mapCaloriesPerDate = new HashMap<>();
         for (UserMeal um : meals){
             LocalDate date = um.getDateTime().toLocalDate();
-            Integer calories =  caloriesPerDate.getOrDefault(date, 0);
-            if (calories == 0){
-                caloriesPerDate.put(date, um.getCalories());
-            }
-            else caloriesPerDate.merge(date,)
+            mapCaloriesPerDate.merge(date, um.getCalories(), (prev, one) -> prev + one);
         }
-
+        // filling result list
         List <UserMealWithExcess> userMealWithExcess = new ArrayList<>();
         for (UserMeal um : meals){
-            if (um.getDateTime().getLong()>startTime && ){
-                um.getDateTime().getLong()
-                userMealWithExcess.add(createUserMealWithExcess(um, false));
+            if (TimeUtil.isBetweenHalfOpen(um.getDateTime().toLocalTime(), startTime, endTime) ){
+                boolean excess = (mapCaloriesPerDate.get(um.getDateTime().toLocalDate()) > caloriesPerDay) ? true : false;
+                userMealWithExcess.add(createUserMealWithExcess(um, excess));
             }
         }
-        // TODO return filtered list with excess. Implement by cycles
-        return null;
+        return userMealWithExcess;
     }
 
+    // simple create new UserMealWithExcess
     private static UserMealWithExcess createUserMealWithExcess(UserMeal um, boolean excess){
         return new UserMealWithExcess(um.getDateTime(), um.getDescription(), um.getCalories(), excess);
     }
