@@ -11,17 +11,19 @@
 
 <thead>
 <tr>
-    <td> Date </td>
-    <td> Description </td>
-    <td> Calories </td>
-    <td> Update </td>
-    <td> Delete </td>
+
+    <td> <b>Date </b></td>
+    <td> <b>Description </b></td>
+    <td> <b>Calories </b></td>
+    <td> <b>Update </b></td>
+    <td> <b>Delete </b></td>
+
 </tr>
 </thead>
 
 <tbody>
 <c:forEach var="meal" items="${meals}">
-    <tr>
+    <tr style="color:${meal.excess ? 'red' : 'green'}">
         <td>
             <fmt:parseDate value="${ meal.dateTime }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"/>
             <fmt:formatDate pattern="dd.MM.yyyy HH:mm" value="${ parsedDateTime }"/>
