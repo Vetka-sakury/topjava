@@ -3,6 +3,8 @@ package ru.javawebinar.topjava.model;
 import java.time.LocalDateTime;
 
 public class MealTo {
+
+    private int id;
     private final LocalDateTime dateTime;
 
     private final String description;
@@ -24,6 +26,10 @@ public class MealTo {
 
     public String getDescription() {
         return description;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public int getCalories() {

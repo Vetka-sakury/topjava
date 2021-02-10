@@ -16,7 +16,7 @@ import java.util.List;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class MealsServlet extends HttpServlet {
-    private static final Logger log = getLogger(UserServlet.class);
+    private static final Logger log = getLogger(MealsServlet.class);
     int caloriesPerDay = 2000;
 
     @Override
