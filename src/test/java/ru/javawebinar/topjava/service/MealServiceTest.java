@@ -41,7 +41,7 @@ private MealService service;
     @Test
     public void get() {
         Meal meal = service.get(MEAL_ID_ADMIN, ADMIN_ID);
-        assertMatch(meal, mealAdmin);
+        assertMatch(meal, MealTestData.mealAdmin);
     }
 
     @Test
