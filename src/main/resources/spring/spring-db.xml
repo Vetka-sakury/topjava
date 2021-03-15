@@ -92,6 +92,7 @@
     </beans>
 
     <beans profile="jdbc">
+
     </beans>
     <beans profile="jpa">
     </beans>
